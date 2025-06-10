@@ -8,7 +8,9 @@ from datetime import datetime
 import requests
 
 
-def setup_logging(log_level: int = logging.INFO) -> logging.Logger:
+def setup_logging(
+    log_level: int = logging.INFO, logger_name: str = __name__
+) -> logging.Logger:
     log_format = "%(asctime)s - %(levelname)s - %(message)s"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -16,7 +18,7 @@ def setup_logging(log_level: int = logging.INFO) -> logging.Logger:
     log_folder = "logs"
     os.makedirs(log_folder, exist_ok=True)
 
-    logger = logging.getLogger("strava_upload")
+    logger = logging.getLogger()
     logger.setLevel(log_level)
     formatter = logging.Formatter(log_format)
 
@@ -58,7 +60,7 @@ def upload_activity(
 
 
 @configure_logging
-def main(csv_file: str, access_token: str, *args, **kwargs) -> None:
+def main(csv_file: str, access_token: str, logger=None):
     logger = kwargs["logger"]
     try:
         with open(csv_file, "r") as file:
