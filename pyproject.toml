@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 fitparse = "^1.2.0"
 requests = "^2.32.3"
+urllib3 = "^2.6.0"
 
 
 [build-system]
